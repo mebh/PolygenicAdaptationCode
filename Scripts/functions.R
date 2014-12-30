@@ -29,11 +29,9 @@ PolygenicAdaptationFunction <- function ( gwas.data.file , freqs.file , env.var.
 	gwas.data$MA.EFF <- ifelse ( gwas.data$FRQ > 0.5 , - gwas.data$EFF , gwas.data$EFF )	
 	match.pop$MAF <- ifelse ( match.pop$FRQ > 0.5 , 1 - match.pop$FRQ , match.pop$FRQ )	
 	
-	
-	
 	# add relevant matching columns that are not in gwas data 
 	gwas.data <- cbind ( gwas.data , match.pop [ match ( gwas.data$SNP , match.pop$SNP ) , match.categories [ !match.categories %in% names ( gwas.data ) ] ,drop = FALSE] )
-
+		
 	# assign SNPs to appropriate bins in contingency table
 	x <- mapply ( function ( CATS , BINS ) 
 				cut ( gwas.data [ , CATS ] , breaks = BINS , include.lowest = T ) ,  
@@ -340,13 +338,18 @@ SampleCovSNPs <- function ( gwas.data , match.pop , pop.names , bin.names , SNPs
 			}
 			in.this.bin <- do.call ( cbind , in.this.bin )
 			matched.SNPs <- match.pop [ rowSums ( in.this.bin ) == length ( bin.names ) , ]$SNP
+			#MEBH:
+			print(matched.SNPs)
+			#print(length(matched.SNPs))
+			#print(this.many [ BIN ] )
 			sampled.SNPs [[ j ]] <- as.character ( sample ( matched.SNPs , this.many [ BIN ] , replace = T ) )
 			j = j + 1 	
 		}
+		
 		sampled.SNPs.count <- table ( unlist ( sampled.SNPs ) )
 		sampled.SNPs <- unlist ( sampled.SNPs )
 		write ( unlist ( sampled.SNPs ) , file = paste ( path , "/cov.SNPs" , k , sep = "" ) , ncolumns = 1 )
-		system ( paste ( "Scripts/sampleSNPs.pl " , path , "/cov.SNPs" , k , " " , full.dataset.file , " > " , path , "/cov.samples" , k , sep = "" ) )
+		system ( paste ( "~/Github/PolygenicAdaptationCode/Scripts/sampleSNPs.pl " , path , "/cov.SNPs" , k , " " , full.dataset.file , " > " , path , "/cov.samples" , k , sep = "" ) )
 		sampled.cov.data <- read.table ( paste ( path , "/cov.samples" , k , sep = "" ) , stringsAsFactors = F , h = T )
 		sampled.cov.data <- sampled.cov.data [ , 1 : 5 ]
 		colnames ( sampled.cov.data ) <- c ( "SNP" , "CLST" , "A1" , "A2" , "FRQ" )

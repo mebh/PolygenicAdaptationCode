@@ -12,11 +12,11 @@ PolygenicAdaptationFunction (
 																"~/Github/PolygenicAdaptationCode/Example/EnvVar/HGDP_WINPC1_GLOBAL" , 
 																"~/Github/PolygenicAdaptationCode/Example/EnvVar/HGDP_WINPC2_GLOBAL" 
 																) , # Note: you can supply as many env.var.data.files concurrently as you want. If only supplying one file it should still be included in a list, e.g. env.var.data.files = list ( "Example/EnvVar/HGDP_LATS_GLOBAL")
-									match.pop.file = "~/Github/PolygenicAdaptationCode/Example/Genome_Data/French_GLOBAL" , 
+									match.pop.file = "~/Github/PolygenicAdaptationCode/Example/Genome_Data/French_GLOBAL_mebh" , 
 									full.dataset.file = "~/Github/PolygenicAdaptationCode/Example/Genome_Data/HapMapInHGDP_PositionsAndBValues" , 
 									path = "~/Github/PolygenicAdaptationCode/Example/Height" , 
-									match.categories = c ( "MAF" , "IMP" , "BVAL" ) ,
-									match.bins = list ( seq ( 0 , 0.5 , 0.02 ), c ( 2 ) , seq ( 0 , 1000 , 100 ) ) , 
+									match.categories = c ( "MAF" , "IMP" , "BVAL") ,
+									match.bins = list ( seq ( 0 , 0.5 , 0.02 ) , c( 2 ), seq ( 0 , 1000 , 100 ) ) , 
 									cov.SNPs.per.cycle = 5000 , 
 									cov.cycles = 4 , 
 									null.phenos.per.cycle = 1000 , 
